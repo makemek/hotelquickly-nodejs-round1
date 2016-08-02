@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Payment</title>
+</head>
+<body>
+
+<form action="/pay" method="post">
+<h2>Order</h2>
+Price: <input type="number" name="price" value="1" min="0" step="any" required><br/>
+Currency: <select name="currency">
+	<option value="usd">USD</option>
+	<option value="eur">EUR</option>
+	<option value="thb">THB</option>
+	<option value="hkd">HKD</option>
+	<option value="sgd">SGD</option>
+	<option value="aud">AUD</option>
+</select><br/>
+Customer Name: <input type="text" name="fullname" required><br/>
+<hr align="left" width="50%">
+
+<h2>Payment</h2>
+Method: 
+<input type="radio" name="pay_method" value="visa" checked>VISA
+<input type="radio" name="pay_method" value="amex">AMEX<br/>
+Credit Card Number:
+<input type="text" name="card_number" maxlength="16" required><br>
+Expiration Date <br>
+Month: <input type="number" name="card_expire_month" max="12" min="1" required>
+Year: <input type="number" name="card_expire_year" max="2100" min="2016" value="2016" required><br>
+Holder Name: <input type="text" name="card_holder_name" required><br>
+CVV: <input type="text" name="card_cvv" minlength="3" maxlength="4" required>
+<hr align="left" width="50%">
+<input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
