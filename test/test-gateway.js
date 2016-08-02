@@ -28,12 +28,12 @@ describe('gateway', function() {
 	})
 
 	it('return correct payment service', function() {
-		assert.equal(gateway.transact({type: 'A'}, 'c1'), fakeService1);
-		assert.equal(gateway.transact({type: 'B'}, 'd1'), fakeService2);
+		assert.equal(gateway.transact('A', 'c1'), fakeService1);
+		assert.equal(gateway.transact('B', 'd1'), fakeService2);
 	})
 
 	it('return null to non-existent route', function() {
-		assert.isNull(gateway.transact({type: 'Z'}, ''), 'should return null for non-existent route');
+		assert.isNull(gateway.transact('Z', ''), 'should return null for non-existent route');
 	})
 
 })
