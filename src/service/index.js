@@ -8,7 +8,7 @@
  * @param  {object} routingTable - an object that maps source card type and currency to destination
  */
 function Gateway(routingTable) {
-	routingTable = routingTable || [{}];
+	routingTable = routingTable || [];
 	this.config = routingTable;
 }
 

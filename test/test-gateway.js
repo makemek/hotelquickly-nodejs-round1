@@ -36,4 +36,9 @@ describe('gateway', function() {
 		assert.isNull(gateway.transact('Z', ''), 'should return null for non-existent route');
 	})
 
+	it('default blank routing table', function() {
+		var blankGateway = new Gateway();
+		assert.isNull(blankGateway.transact('',''));
+	})
+
 })
