@@ -5,11 +5,11 @@
  * A routing configuration have to map source to destination with the following properties
  * [{source: {cardType: <string>, currenncy: [<string>]}, target: <PaymentService>}]
  * 
- * @param  {object} routerConfig - an object that maps source card type and currency to destination
+ * @param  {object} routingTable - an object that maps source card type and currency to destination
  */
-function Gateway(routerConfig) {
-	routerConfig = routerConfig || {};
-	this.config = routerConfig;
+function Gateway(routingTable) {
+	routingTable = routingTable || [{}];
+	this.config = routingTable;
 }
 
 Gateway.prototype.constructor = Gateway;
