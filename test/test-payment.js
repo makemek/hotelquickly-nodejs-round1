@@ -44,5 +44,16 @@ const braintree = require('../src/service/braintree');
 				done();
 			})
 		})
+
+		it('invalid amount', function(done){
+			this.timeout(50000);
+			item.component.charge(creditCard, 0, 'usd', function(error, isSuccess, result) {
+				if(error)
+					return done(error);
+
+				assert.isFalse(isSuccess, 'payment should not success');
+				done();
+			})
+		})
 	})
 })
