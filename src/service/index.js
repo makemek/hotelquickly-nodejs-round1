@@ -24,17 +24,32 @@ Gateway.prototype.constructor = Gateway;
  */
 Gateway.prototype.transact = function(cardType, currency) {
 
-	var routes = this.config.filter(function(route) {
-		var sameType = route.source.cardType.toLowerCase() === cardType.toLowerCase();
-		var currencyExist = route.source.currency.filter(function(_currency){
-			return _currency.toLowerCase() === currency.toLowerCase()})
-		.length > 0;
-		return sameType && currencyExist;
-	})
-
+	var routes = this.config.filter(matchRoute);
 	if(!routes.length)
 		return null;
 	return routes[0].target;
+
+	function matchRoute(route) {
+		const ANYKIND_SYMBOL = '*';
+		var sameType, currencyExist;
+		var lookupSource = route.source;
+
+		if(lookupSource.cardType === ANYKIND_SYMBOL)
+			sameType = true;
+		else
+			sameType = lookupSource.cardType.toLowerCase() === cardType.toLowerCase();
+
+		if(lookupSource.currency === ANYKIND_SYMBOL)
+			currencyExist = true;
+		else {
+			currencyExist = lookupSource.currency.filter(function(_currency){
+				return _currency.toLowerCase() === currency.toLowerCase()
+			}).length > 0;
+		}
+
+		return sameType && currencyExist;
+	}
 }
+
 
 module.exports = exports = Gateway;
