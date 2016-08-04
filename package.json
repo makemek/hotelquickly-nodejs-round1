@@ -4,8 +4,8 @@
   "description": "payment gateway library (paypal and braintree)",
   "main": "index.js",
   "scripts": {
-  	"start": "node index.js",
-  	"dev": "nodemon index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "mocha"
   },
   "author": "Apipol Niyomsak",
