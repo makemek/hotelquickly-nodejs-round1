@@ -11,7 +11,8 @@ var Paypal = {
 	 * Example {@link https://github.com/paypal/PayPal-node-SDK/blob/master/samples/payment/create_with_credit_card.js}
 	 * 
 	 * @callback {requestCallback}
-	 * @param {object} error
+	 * @param {object} error - any other error that doesn't concern with http status code 2xx and 4xx sent from the target server
+	 * @param {bool} isSuccess - indicate whether the transaction is success or not
 	 * @param {object} result - response from paypal sdk. Sample {@link https://developer.paypal.com/docs/api/payments/#payment_execute_response}
 	 */
 
@@ -36,7 +37,14 @@ var Paypal = {
 			transactions: [order]
 		}
 
-		paypal.payment.create(payment, done);
+		paypal.payment.create(payment, function(error, payment){
+			if(!error)
+				return done(null, true, payment);
+			else if(error && error.httpStatusCode >= 400 && error.httpStatusCode < 500)
+				return done(null, false, error.response)
+			else
+				return done(error, false, payment);
+		});
 	}
 }
 

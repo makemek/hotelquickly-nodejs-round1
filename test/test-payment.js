@@ -20,12 +20,13 @@ describe('payment', function() {
 	})
 
 	describe('paypal', function() {
-		it('valid credit card', function(done) {
+		it('valid credit card number', function(done) {
 			this.timeout(50000);
-			paypal.charge(creditCard, 1, 'usd', function(error, payment) {
+			paypal.charge(creditCard, 1, 'usd', function(error, isSuccess, result) {
 				if(error)
 					return done(error);
 
+				assert.isTrue(isSuccess);
 				done();
 			})
 		})
@@ -33,11 +34,11 @@ describe('payment', function() {
 		it('invalid credit card number', function(done){
 			this.timeout(50000);
 			creditCard.card_number = '0123456789';
-			paypal.charge(creditCard, 1, 'usd', function(error, payment) {
-				assert.isDefined(error);
-				assert.isNull(payment);
+			paypal.charge(creditCard, 1, 'usd', function(error, isSuccess, result) {
+				if(error)
+					return done(error);
 
-				assert.equal(error.httpStatusCode, 400);
+				assert.isFalse(isSuccess);
 				done();
 			})
 		})
@@ -46,11 +47,23 @@ describe('payment', function() {
 	describe('braintree', function() {
 		it('valid credit card number', function(done) {
 			this.timeout(50000);
-			braintree.charge(creditCard, 1, 'usd', function(error, result) {
+			braintree.charge(creditCard, 1, 'usd', function(error, isSuccess, result) {
 				if(error)
 					return done(error);
 				
-				assert.isTrue(result.success, result.message);
+				assert.isTrue(isSuccess, result.message);
+				done();
+			})
+		})
+
+		it('invalid credit card number', function(done){
+			this.timeout(50000);
+			creditCard.card_number = '0123456789';
+			paypal.charge(creditCard, 1, 'usd', function(error, isSuccess, result) {
+				if(error)
+					return done(error);
+
+				assert.isFalse(isSuccess);
 				done();
 			})
 		})

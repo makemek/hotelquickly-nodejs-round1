@@ -13,7 +13,8 @@ var Braintree = {
 	 * @see https://developers.braintreepayments.com/guides/transactions/node
 	 * 
 	 * @callback {requestCallback}
-	 * @param {object} error
+	 * @param {object} error - any other error that doesn't concern with http status code 2xx and 4xx sent from the target server
+	 * @param {bool} isSuccess - indicate whether the transaction is success or not
 	 * @param {object} result - if transaction is successful, result.isSuccess will return true. Otherwise check for validation errors {@link https://developers.braintreepayments.com/reference/general/validation-errors/all/node}
 	 */
 
@@ -37,7 +38,9 @@ var Braintree = {
 			}
 		}
 
-		gateway.transaction.sale(payment, done)
+		gateway.transaction.sale(payment, function(error, result){
+			done(error, result.success, result);
+		})
 	}
 }
 
