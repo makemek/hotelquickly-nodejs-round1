@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "braintree": "1.41.0",
+    "express": "4.14.0",
     "paypal-rest-sdk": "1.6.9"
   },
   "devDependencies": {
