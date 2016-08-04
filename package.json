@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "payment gateway library (paypal and braintree)",
   "main": "index.js",
+  "bin": {
+    "mocha": "./node_modules/mocha/bin/mocha"
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
@@ -13,5 +16,9 @@
   "dependencies": {
     "braintree": "1.41.0",
     "paypal-rest-sdk": "1.6.9"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "mocha": "3.0.1"
   }
 }
