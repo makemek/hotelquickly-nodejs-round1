@@ -51,7 +51,7 @@ var Paypal = {
 function mapCreditcardToPaypalFormat(creditCard) {
 	return {
 		credit_card: {
-			type: creditCard.pay_method,
+			type: creditCard.card_type,
 			number: creditCard.card_number,
 			expire_month: creditCard.card_expire_month,
 			expire_year: creditCard.card_expire_year,

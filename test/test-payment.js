@@ -10,7 +10,7 @@ const braintree = require('../src/service/braintree');
 
 		beforeEach(function(){
 			creditCard = {
-				pay_method: 'visa',
+				card_type: 'visa',
 				card_number: '4111111111111111',
 				card_expire_month: '9',
 				card_expire_year: '2021',
