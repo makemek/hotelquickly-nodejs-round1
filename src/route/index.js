@@ -6,6 +6,23 @@ const gatewayRoutingTable = require('../config/gateway');
 const Gateway = require('../service/');
 const gateway = new Gateway(gatewayRoutingTable);
 
+/**
+ * HTTP POST
+ * Process credit card payment
+ *
+ * Input:
+ * - price <number>                : total amount
+ * - currency <string>             : currency unit
+ * - fullname <string>             : full customer's name
+ * - card_type <string>            : type of credit card
+ * - card_number <string>          : credit card number
+ * - card_expire_month <number>    : credit card expiration month
+ * - card_expire_year <number>     : credit card expiration year
+ * - card_holder_firstname <string>: credit card holder's first name
+ * - card_holder_lastname <string> : credit card holder's last name
+ * 
+ * Output: JSON response indicate whether payment is success or not. If success, reponse with http status code 200. 400 otherwise
+ */
 router.post('/pay', function(req, res, next) {
 	var field = req.body;
 	var paymentService = gateway.transact(field.card_type, field.currency);
