@@ -2,6 +2,9 @@
 
 const paypal = require('../src/service/paypal');
 const braintree = require('../src/service/braintree');
+const nock = require('nock');
+require('./fixtures/paypal');
+require('./fixtures/braintree');
 
 [{name: 'paypal', component: paypal}, {name: 'braintree', component: braintree}]
 .forEach(function(item){
