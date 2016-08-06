@@ -14,9 +14,12 @@ module.exports = exports = {
 			'privateKey': '0a03f6db8f64a932415f42a1de6dd754'
 		},
 		'merchantAccountId': {
-			'usd': 'usd',
+			'aud': 'aud',
+			'eur': 'eur',
+			'hkd': 'hkd',
 			'sgd': 'sgd',
-			'thb': 'thb'
+			'thb': 'thb',
+			'usd': 'usd'
 		}
 	}
 }
