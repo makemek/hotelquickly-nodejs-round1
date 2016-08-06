@@ -17,6 +17,7 @@
     "body-parser": "1.15.2",
     "braintree": "1.41.0",
     "express": "4.14.0",
+    "mongoose": "4.5.8",
     "paypal-rest-sdk": "1.6.9"
   },
   "devDependencies": {

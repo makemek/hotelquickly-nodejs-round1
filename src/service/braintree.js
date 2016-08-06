@@ -2,6 +2,7 @@
 
 const braintree = require('braintree');
 const braintreeConfig = require('../config/payment').braintree;
+const braintreeReceipt = require('../schema/braintree');
 
 braintreeConfig.api.environment = braintree.Environment.Sandbox;
 var gateway = braintree.connect(braintreeConfig.api);
@@ -41,6 +42,11 @@ var Braintree = {
 		gateway.transaction.sale(payment, function(error, result){
 			done(error, result.success, result);
 		})
+	},
+
+	serialize: function(paymentResponse, done) {
+		var receipt = new braintreeReceipt({paymentResult: paymentResponse});
+		receipt.save(done);
 	}
 }
 

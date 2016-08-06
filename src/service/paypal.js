@@ -2,6 +2,7 @@
 
 const paypal = require('paypal-rest-sdk');
 const paymentConfig = require('../config/payment');
+const paypalReceipt = require('../schema/paypal');
 
 paypal.configure(paymentConfig.paypal);
 
@@ -45,6 +46,11 @@ var Paypal = {
 			else
 				return done(error, false, payment);
 		});
+	},
+
+	serialize: function(paymentResponse, done) {
+		var receipt = new paypalReceipt({paymentResult: paymentResponse});
+		receipt.save(done);
 	}
 }
 
