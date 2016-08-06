@@ -33,7 +33,7 @@ router.post('/pay', function(req, res, next) {
 	if(paymentService instanceof Error)
 		return res.status(400).json({message: paymentService.message});
 
-	paymentService.charge(field, field.price, field.currency, function(error, isSuccess, result) {
+	paymentService.charge(field, parseFloat(field.price), field.currency, function(error, isSuccess, result) {
 		if(error)
 			return next(error);
 
@@ -56,7 +56,7 @@ router.post('/pay', function(req, res, next) {
 		fields = sanitizeInput(fields);
 		var isValid = true;
 		var rules = [
-			/\d+/.test(fields.price),
+			/\d+/.test(fields.price) && parseFloat(fields.price) !== NaN,
 			/[a-zA-Z]{3}/.test(fields.currency) && fields.currency.length == 3,
 
 			/\w+/.test(fields.card_type),

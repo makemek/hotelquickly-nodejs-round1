@@ -1,6 +1,7 @@
 const nock = require('nock');
 
 nock('https://api.sandbox.paypal.com:443', {"encodedQueryParams":true})
+  .persist()
   .post('/v1/oauth2/token', "grant_type=client_credentials")
   .reply(200, {"scope":"https://api.paypal.com/v1/payments/.* https://api.paypal.com/v1/vault/credit-card openid https://api.paypal.com/v1/developer/.* https://api.paypal.com/v1/vault/credit-card/.*","nonce":"2016-08-05T18:04:35Z3NuKMRDXSOWdyKEMMpN2ASupITS2or5Fi9Wm_t9391U","access_token":"A101.KOkLQwt_nigZDZvX945pjKfwxKVLfqOrfDvnp3BncY-2uApj_3bYuorLOyCvzgTM.CyfQqLSSIqrQq6KmXKvCzw-1Cxq","token_type":"Bearer","app_id":"APP-2EJ531395M785864S","expires_in":30495}, { date: 'Fri, 05 Aug 2016 18:36:20 GMT',
   server: 'Apache',
@@ -17,6 +18,7 @@ nock('https://api.sandbox.paypal.com:443', {"encodedQueryParams":true})
   'content-type': 'application/json' });
 
 nock('https://api.sandbox.paypal.com:443', {"encodedQueryParams":true})
+  .persist()
   .post('/v1/payments/payment/', {"intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"4111111111111111","expire_month":"9","expire_year":"2021","cvv2":"874","first_name":"Joe","last_name":"Shopper"}}]},"transactions":[{"amount":{"total":1,"currency":"USD"}}]})
   .reply(200, {"id":"PAY-0MY35455HK0674703K6SNZJI","create_time":"2016-08-05T18:36:21Z","update_time":"2016-08-05T18:36:21Z","state":"created","intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"xxxxxxxxxxxx1111","expire_month":"9","expire_year":"2021","first_name":"Joe","last_name":"Shopper"}}]},"transactions":[{"amount":{"total":"1.00","currency":"USD","details":{"subtotal":"1.00"}},"related_resources":[]}],"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-0MY35455HK0674703K6SNZJI","rel":"self","method":"GET"}]}, { date: 'Fri, 05 Aug 2016 18:36:21 GMT',
   server: 'Apache',
