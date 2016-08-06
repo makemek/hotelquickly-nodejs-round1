@@ -47,11 +47,11 @@ var Braintree = {
 	/**
 	 * persist payment to the database
 	 * 
-	 * @param  {object} paymentResponse JSON response generated from charge()
+	 * @param  {object} payment - JSON response generated from charge()
 	 * @return {Promise} @link{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise}
 	 */
-	serialize: function(paymentResponse) {
-		var receipt = new braintreeReceipt({paymentResult: paymentResponse});
+	persist: function(payment) {
+		var receipt = new braintreeReceipt({paymentResult: payment});
 		return receipt.save();
 	}
 }

@@ -40,7 +40,7 @@ router.post('/pay', function(req, res, next) {
 		if(!isSuccess)
 			return res.status(400).json({message: 'payment failed', errorResponse: result});
 
-		paymentService.serialize(result).catch(next);
+		paymentService.persist(result).catch(next);
 		return res.status(200).json({message: 'payment success', result});
 	})
 
