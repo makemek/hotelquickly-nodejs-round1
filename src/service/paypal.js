@@ -48,6 +48,12 @@ var Paypal = {
 		});
 	},
 
+	/**
+	 * persist payment to the database
+	 * 
+	 * @param  {object} paymentResponse JSON response generated from charge()
+	 * @return {Promise} @link{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise}
+	 */
 	serialize: function(paymentResponse) {
 		var receipt = new paypalReceipt({paymentResult: paymentResponse});
 		return receipt.save();
