@@ -44,9 +44,9 @@ var Braintree = {
 		})
 	},
 
-	serialize: function(paymentResponse, done) {
+	serialize: function(paymentResponse) {
 		var receipt = new braintreeReceipt({paymentResult: paymentResponse});
-		receipt.save(done);
+		return receipt.save();
 	}
 }
 

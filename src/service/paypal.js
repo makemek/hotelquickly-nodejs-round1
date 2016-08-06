@@ -48,9 +48,9 @@ var Paypal = {
 		});
 	},
 
-	serialize: function(paymentResponse, done) {
+	serialize: function(paymentResponse) {
 		var receipt = new paypalReceipt({paymentResult: paymentResponse});
-		receipt.save(done);
+		return receipt.save();
 	}
 }
 
