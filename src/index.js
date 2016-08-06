@@ -1,23 +1,24 @@
 'use strict';
 
-const express = require('express');
-const bodyparser = require('body-parser');
-const mongoose = require('mongoose');
-const app = express();
-const bluebird = require('bluebird');
+/**
+ * Connect application and database together
+ * Database needs to be started before launching the application
+ * Otherise, it will throw an error
+ */
 
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended: true}));
-app.use(express.static('src/public'));
-app.use('/', require('./route/'));
+const LISTENING_PORT = 8080;
+
+const mongoose = require('mongoose');
+const bluebird = require('bluebird');
+const app = require('./app');
 
 mongoose.Promise = bluebird;
-mongoose.connect('mongodb://localhost/hotel-quickly', function(error, res) {
-	if(error)
-		throw error;
-
-	const PORT = 3000;
-	app.listen(PORT, function() {
-		console.log('Application is started at port ' + PORT)
-	});
-});
+mongoose.connect('mongodb://localhost/hotel-quickly')
+.then(function() {
+	var listener = app.listen(LISTENING_PORT, function(){
+		console.log('Application is listening at port ' + listener.address().port);
+	})
+})
+.catch(function(error){
+	throw error;
+})
