@@ -25,6 +25,10 @@ const gateway = new Gateway(gatewayRoutingTable);
  */
 router.post('/pay', function(req, res, next) {
 	var field = req.body;
+	var isValid = validateInput(field);
+	if(!isValid)
+		return res.status(400).json({message: 'Invalid input'});
+
 	var paymentService = gateway.transact(field.card_type, field.currency);
 	if(paymentService instanceof Error)
 		return res.status(400).json({message: paymentService.message});
@@ -38,6 +42,36 @@ router.post('/pay', function(req, res, next) {
 
 		return res.status(200).json({message: 'payment success', result});
 	})
+
+	function sanitizeInput(fields){
+		Object.keys(fields).forEach(function(fieldName) {
+			fields[fieldName] = fields[fieldName].trim();
+		})
+
+		return fields;
+	}
+
+	function validateInput(fields){
+		fields = sanitizeInput(fields);
+		var isValid = true;
+		var rules = [
+			/\d+/.test(fields.price),
+			/[a-zA-Z]{3}/.test(fields.currency) && fields.currency.length == 3,
+
+			/\w+/.test(fields.card_type),
+			/\d{16}/.test(fields.card_number) && fields.card_number.length == 16,
+			/\d{1,2}/.test(fields.card_expire_month) && (fields.card_expire_month.length == 1 || fields.card_expire_month.length == 2),
+			/\d{4}/.test(fields.card_expire_year) && fields.card_expire_year.length == 4,
+			/\w+/g.test(fields.card_holder_firstname),
+			/\w+/g.test(fields.card_holder_lastname)
+		]
+		rules.forEach(function(rule) {
+			isValid = isValid & rule;
+		})
+
+		return isValid;
+	}
 })
+
 
 module.exports = exports = router;
