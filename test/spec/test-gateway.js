@@ -1,6 +1,6 @@
 'use strict';
 
-const Gateway = require('../src/service/')
+const Gateway = require('../../src/service/')
 
 describe('gateway', function() {
 
