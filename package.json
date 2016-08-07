@@ -14,12 +14,14 @@
   "author": "Apipol Niyomsak",
   "license": "MIT",
   "dependencies": {
+    "async": "2.0.1",
     "bluebird": "3.4.1",
     "body-parser": "1.15.2",
     "braintree": "1.41.0",
     "express": "4.14.0",
     "mongoose": "4.5.8",
-    "paypal-rest-sdk": "1.6.9"
+    "paypal-rest-sdk": "1.6.9",
+    "validator": "5.5.0"
   },
   "devDependencies": {
     "chai": "3.5.0",

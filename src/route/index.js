@@ -1,5 +1,6 @@
 'use strict';
 
+const validator = require('validator');
 const express = require('express');
 const router = express.Router();
 const gatewayRoutingTable = require('../config/gateway');
@@ -56,15 +57,14 @@ router.post('/pay', function(req, res, next) {
 		fields = sanitizeInput(fields);
 		var isValid = true;
 		var rules = [
-			/\d+/.test(fields.price) && parseFloat(fields.price) !== NaN,
-			/[a-zA-Z]{3}/.test(fields.currency) && fields.currency.length == 3,
-
-			/\w+/.test(fields.card_type),
-			/\d{16}/.test(fields.card_number) && fields.card_number.length == 16,
-			/\d{1,2}/.test(fields.card_expire_month) && (fields.card_expire_month.length == 1 || fields.card_expire_month.length == 2),
-			/\d{4}/.test(fields.card_expire_year) && fields.card_expire_year.length == 4,
-			/\w+/g.test(fields.card_holder_firstname),
-			/\w+/g.test(fields.card_holder_lastname)
+			fields.hasOwnProperty('price')                && parseFloat(fields.price) !== NaN,
+			fields.hasOwnProperty('currency')             && /[a-zA-Z]{3}/.test(fields.currency) && fields.currency.length == 3,
+			fields.hasOwnProperty('card_type')            && /\w+/.test(fields.card_type),
+			fields.hasOwnProperty('card_number')          && validator.isCreditCard(fields.card_number),
+			fields.hasOwnProperty('card_expire_month')    && validator.isInt(fields.card_expire_month, {min: 1, max: 12, allow_leading_zeros: true}),
+			fields.hasOwnProperty('card_expire_year')     && validator.isInt(fields.card_expire_year, {allow_leading_zeros: true}),
+			fields.hasOwnProperty('card_holder_firstname')&& /\w+/g.test(fields.card_holder_firstname),
+			fields.hasOwnProperty('card_holder_lastname') && /\w+/g.test(fields.card_holder_lastname)
 		]
 		rules.forEach(function(rule) {
 			isValid = isValid & rule;

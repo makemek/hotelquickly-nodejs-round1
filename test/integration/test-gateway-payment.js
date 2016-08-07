@@ -1,5 +1,6 @@
 'use strict';
 
+const async = require('async');
 const sinon = require('sinon');
 const request = require('supertest');
 const app = require('../../src/app');
@@ -28,5 +29,43 @@ describe('gateway <-> payment service', function() {
 		.send(input)
 		.expect(200)
 		.end(done);
+	})
+
+	it('invalid input', function(done) {
+		var inputs = [
+		{},
+		{
+			price: '  ',
+			currency: '  ',
+			fullname: '  ',
+			card_type: '  ',
+			card_number: '  ',
+			card_expire_month: '  ',
+			card_expire_year: '  ',
+			card_holder_firstname: ' ',
+			card_holder_lastname: '  ',
+			card_cvv: '  '
+		},
+		{
+			price: '!@#$%^&*()0_+<>?',
+			currency: '!@#$%^&*()0_+<>?',
+			fullname: 'not matter',
+			card_type: '!@#$%^&*()0_+<>?',
+			card_number: '!@#$%^&*()0_+<>?',
+			card_expire_month: '!@#$%^&*()0_+<>?',
+			card_expire_year: '!@#$%^&*()0_+<>?',
+			card_holder_firstname: 'not matter',
+			card_holder_lastname: 'not matter',
+			card_cvv: '!@#$%^&*()0_+<>?'
+		}
+		];
+
+		async.forEach(inputs, function(input, callback){
+			request(app)
+			.post('/pay')
+			.send(input)
+			.expect(400)
+			.end(callback);
+		}, done)
 	})
 })
