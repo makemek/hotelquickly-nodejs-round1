@@ -3,7 +3,8 @@
 const mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-	paymentResult: Object
+	orderData: Object,
+	payment: Object
 });
 
 module.exports = exports = mongoose.model('braintree', schema);
