@@ -19,7 +19,7 @@ nock('https://api.sandbox.paypal.com:443', {"encodedQueryParams":true})
 
 nock('https://api.sandbox.paypal.com:443', {"encodedQueryParams":true})
   .persist()
-  .post('/v1/payments/payment/', {"intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"4111111111111111","expire_month":"9","expire_year":"2021","cvv2":"874","first_name":"Joe","last_name":"Shopper"}}]},"transactions":[{"amount":{"total":1,"currency":"USD"}}]})
+  .post('/v1/payments/payment/', {"intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"4111111111111111","expire_month":"9","expire_year":"2021","cvv2":"874","first_name":"Joe","last_name":"Shopper"}}]},"transactions":[{"amount":{"total":"1.00","currency":"USD"}}]})
   .reply(200, {"id":"PAY-0MY35455HK0674703K6SNZJI","create_time":"2016-08-05T18:36:21Z","update_time":"2016-08-05T18:36:21Z","state":"created","intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"xxxxxxxxxxxx1111","expire_month":"9","expire_year":"2021","first_name":"Joe","last_name":"Shopper"}}]},"transactions":[{"amount":{"total":"1.00","currency":"USD","details":{"subtotal":"1.00"}},"related_resources":[]}],"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-0MY35455HK0674703K6SNZJI","rel":"self","method":"GET"}]}, { date: 'Fri, 05 Aug 2016 18:36:21 GMT',
   server: 'Apache',
   proxy_server_info: 'host=slcsbplatformapiserv3001.slc.paypal.com;threadId=416',
@@ -35,7 +35,7 @@ nock('https://api.sandbox.paypal.com:443', {"encodedQueryParams":true})
   'content-type': 'application/json' });
 
 nock('https://api.sandbox.paypal.com:443', {"encodedQueryParams":true})
-  .post('/v1/payments/payment/', {"intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"0123456789","expire_month":"9","expire_year":"2021","cvv2":"874","first_name":"Joe","last_name":"Shopper"}}]},"transactions":[{"amount":{"total":1,"currency":"USD"}}]})
+  .post('/v1/payments/payment/', {"intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"0123456789","expire_month":"9","expire_year":"2021","cvv2":"874","first_name":"Joe","last_name":"Shopper"}}]},"transactions":[{"amount":{"total":"1.00","currency":"USD"}}]})
   .reply(400, {"name":"VALIDATION_ERROR","details":[{"field":"payer.funding_instruments[0].credit_card.number","issue":"Value is invalid."}],"message":"Invalid request. See details.","information_link":"https://developer.paypal.com/webapps/developer/docs/api/#VALIDATION_ERROR","debug_id":"96adc98ecec6b"}, { date: 'Fri, 05 Aug 2016 18:36:52 GMT',
   server: 'Apache',
   proxy_server_info: 'host=slcsbplatformapiserv3002.slc.paypal.com;threadId=1415',
@@ -51,7 +51,7 @@ nock('https://api.sandbox.paypal.com:443', {"encodedQueryParams":true})
   'content-type': 'application/json' });
 
 nock('https://api.sandbox.paypal.com:443', {"encodedQueryParams":true})
-  .post('/v1/payments/payment/', {"intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"4111111111111111","expire_month":"9","expire_year":"2021","cvv2":"874","first_name":"Joe","last_name":"Shopper"}}]},"transactions":[{"amount":{"total":0,"currency":"USD"}}]})
+  .post('/v1/payments/payment/', {"intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"4111111111111111","expire_month":"9","expire_year":"2021","cvv2":"874","first_name":"Joe","last_name":"Shopper"}}]},"transactions":[{"amount":{"total":"0.00","currency":"USD"}}]})
   .reply(400, {"name":"VALIDATION_ERROR","details":[{"field":"transactions[0].amount","issue":"Amount cannot be zero."}],"message":"Invalid request. See details.","information_link":"https://developer.paypal.com/webapps/developer/docs/api/#VALIDATION_ERROR","debug_id":"53f86ad2bbc94"}, { date: 'Fri, 05 Aug 2016 18:36:53 GMT',
   server: 'Apache',
   proxy_server_info: 'host=slcsbplatformapiserv3002.slc.paypal.com;threadId=560',

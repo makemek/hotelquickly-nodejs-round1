@@ -1,14 +1,16 @@
 'use strict';
 
+const PaypalService = require('paypal-rest-sdk');
 const paypal = require('../../src/service/paypal');
 const braintree = require('../../src/service/braintree');
+const sinon = require('sinon');
 const nock = require('nock');
 require('../fixtures/paypal');
 require('../fixtures/braintree');
 
 [{name: 'paypal', component: paypal}, {name: 'braintree', component: braintree}]
 .forEach(function(item){
-	describe(item.name, function(){
+	describe('common payment interface: ' + item.name, function(){
 		var creditCard;
 
 		beforeEach(function(){
@@ -59,4 +61,18 @@ require('../fixtures/braintree');
 			})
 		})
 	})
+})
+
+describe('paypal', function() {
+	it('payment total amount should be a number string with 2 decimal places', sinon.test(function() {
+		var paymentStub = this.stub(PaypalService.payment, 'create');
+		paypal.charge({}, 1.5, '');
+		var payment = paymentStub.firstCall.args[0];
+
+		payment.transactions.forEach(function(transaction) {
+			var total = transaction.amount.total;
+			assert.isString(total, 'should be a string');
+			assert.match(total, /\d*\.\d{2}/, 'should have 2 decimal places');
+		})
+	}))
 })

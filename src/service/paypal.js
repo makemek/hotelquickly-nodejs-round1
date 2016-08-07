@@ -77,7 +77,7 @@ function mapCreditcardToPaypalFormat(creditCard) {
 function createTransaction(price, currency) {
 	return {
 		amount: {
-			total: price,
+			total: price.toFixed(2),
 			currency: currency.toUpperCase()
 		}
 	}
