@@ -1,4 +1,4 @@
-'use strcit';
+'use strict';
 
 const paypal = require('../service/paypal');
 const braintree = require('../service/braintree');
