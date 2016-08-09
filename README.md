@@ -43,7 +43,9 @@ Asses its feasability.
 Come up with a design and break it down piece-by-piece until problem become less abstract and get more technical to the point that I'm ready to code that component.
 However, I'm not a guy who just daydream about the design that seems to work only on paper neither a guy who rush to code and don't know what he suppose to do.
 I wrote the design three pages on two A4 paper with pencil.
-Let's digest the requirement first
+The design is later refined and shown in the later sections.
+Let's digest the requirement first.
+
 ###Requirement Analysis
 Compare requirement one-by-one.
 * 1. is what libraries I must use (paypal-rest-sdk and braintree)
@@ -66,12 +68,12 @@ I am not going to use any UML for now because the problem is too abstract.
 Let's take a look from the top-most view.
 A single black box.
 
-![overview](http://imgh.us/app.svg)
+![overview](http://imgh.us/app_1.svg)
 
->In-ward arrow means input.
->Out-ward arrow means output.
+>Inward arrow means input.
+>Outward arrow means output.
 
->Given an order to the system, it has to output payment, transaction record, and payment response.
+>Given an order to the system, it has to make a payment and output a response message in a form of web page.
 
 Image above are digested from the requirement to what is the expected input and output.
 Fortunately, the input and output are deterministic making the problem simpler otherwise we'll have to consult for more precise and clearer requirements.
@@ -103,7 +105,7 @@ It makes the payment to payment services and save whatever it responses to the d
 
 Inside the ``Order System``
 
-![component](http://imgh.us/component_1.svg)
+![component](http://imgh.us/component_3.svg)
 
 We see that we suppose to call braintree and paypal to charage money to their service.
 Each of them have their own way of calling their service so we need a common interface that will make our job easier.
@@ -115,6 +117,12 @@ The input ``Order`` is broken down to card type and currency which will feed to 
 It determines what payment service we should use.
 * ``PaymentService`` is an interface to either paypal or braintree.
 It encapsulates its implementation detail and gives us a nice and clean method to call.
+* ``DecisionMaker`` decides what route to go in case of ``PaymentGateway`` gives out multiple routes.
+It is neither an object nor component.
+It is just a stub of code that get more spotlight than others.
+I decide to embed it in ``PaymentGateway``.
+But if we have a more complex logic to it.
+We can extend this later.
 
 The ``<Internet>`` oval reminds us that we need an internet connection, paypal and braintree sandbox account in order to succeeed.
 
@@ -124,6 +132,9 @@ Let's make an Sequence Diagram and Class Diagram to see how are they incorporate
 
 ![sequence diagram](http://imgh.us/Make_an_Order.png)
 ![class diagram](http://imgh.us/Order_3.png)
+
+Classes in blue color are designed using [bridge design pattern](https://en.wikipedia.org/wiki/Bridge_pattern).
+It helps encapsulate the implementation details where each unit can vary independently.
 
 **FINALLY, We are ready to code.**
 
