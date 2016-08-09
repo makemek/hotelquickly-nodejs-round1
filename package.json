@@ -2,6 +2,10 @@
   "name": "nodejs-round1",
   "version": "0.0.0",
   "description": "payment gateway library (paypal and braintree)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/makemek/nodejs-round1"
+  },
   "main": "index.js",
   "bin": {
     "mocha": "./node_modules/mocha/bin/mocha"
