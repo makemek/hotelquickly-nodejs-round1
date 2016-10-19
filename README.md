@@ -1,4 +1,20 @@
 #Node.js Round 1
+## (UPDATE) Feedback and improvements
+**Turns out that I pass the round 1. ヽ(^‥^=ゞ)**
+
+However, there are useful suggestions that they provide for further improvements upon this repo.
+Hopefully, they maybe useful for those who would like apply to HotelQuickly working on this assignment.
+  - Use Javascript [ES6 features](http://es6-features.org/). They highly recommend to use it.
+  - Use [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise) instead of a callback function.
+  - Make sure to [lint](https://www.npmjs.com/package/eslint) your code. You can use any guidelines you like.
+  - There should be no js config files littering around. The app should be configurable from the environment variables. Use [dotenv](https://www.npmjs.com/package/dotenv) library to deal with environment variables.
+  - [Cluster](https://nodejs.org/api/cluster.html#cluster_cluster) your app. Would be even better if you can config whether to enable it
+  - Have your app deployable and testable using [Docker](https://www.docker.com/). You can pull MongoDB and Node image, create your app image, and link them
+  - Lock dependencies version using `npm shrinkwrap`
+  - Preferable to have all kinds of errors handle in one place.
+  - **DO NOT** use console.log() in your app. Please use [debug](https://www.npmjs.com/package/debug) instead
+  - Have unittest and functional test (end-to-end)
+
 ##Installation
 Clone this repository and run
 ```bashp
